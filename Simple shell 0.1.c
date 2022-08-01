@@ -1,6 +1,3 @@
-/*
- * Vhonani Mufeba
- */
  /* Purpose: Simple command line interpreter 
   * Usage info: To run a command user need to type any command with/without argument into the prompt and then press 'enter'
   * Other info: This program use execvp() function to execute a command. This gives opportunity for user to not including a path(example: /bin/)
