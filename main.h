@@ -160,19 +160,16 @@ void print_message(char *str);
 
 void end_of_file(char *buffer);
 unsigned int sig_flag;
-#endif /* _SHELL_H_ */
+
 
 extern char **environ;
 
 int _strcmp(char *str1, char *str2);
 int verify_path(char **arguments);
-char *_strdup(char *str);
 char *append_command(char *dir_path, char *command);
 int exec(char **arguments);
 int fill_args(char *entry, char **arguments);
 void new_cd(vars_t *vars);
-int print_numbers(int n);
-int _strlen(const char *string);
 int print_not_found(char **arguments, int counter);
 char *_getenv(char *global_var);
 int _printp(const char *prompt, unsigned int size);
@@ -183,7 +180,5 @@ void last_free(char *entry);
 int verify_blt(char **arguments, int exit_stat);
 char *add_value(char *key, char *value);
 char **find_key(char **env, char *key);
-void add_key(vars_t *vars);
-
 
 #endif
