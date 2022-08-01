@@ -9,6 +9,7 @@
  */
 list_t *create_env(char **env, list_t *env_list)
 {
+
 unsigned int i;
 char *name, *value;
 
