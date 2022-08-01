@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
 * Purpose: Simple command line interpreter
 * Usage info: To run a command user need to type any command
@@ -6,14 +5,6 @@
 * Additional features: print out errors
 */
 
-=======
- /* Purpose: Simple command line interpreter 
-  * Usage info: To run a command user need to type any command with/without argument into the prompt and then press 'enter'
-  * Other info: This program use execvp() function to execute a command. This gives opportunity for user to not including a path(example: /bin/)
-  * Additional features: print out errors, check if input is empty, check if input is 'q'
-  */
-  
->>>>>>> bff03edd16cfda1324ddffcd05d528dd6b59c03a
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
