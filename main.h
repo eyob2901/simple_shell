@@ -19,6 +19,7 @@ char *_strdup(char *str);
 char *append_command(char *dir_path, char *command);
 int exec(char **arguments);
 int fill_args(char *entry, char **arguments);
+void new_cd(vars_t *vars);
 int print_numbers(int n);
 int _strlen(const char *string);
 int print_not_found(char **arguments, int counter);
