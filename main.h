@@ -164,12 +164,10 @@ unsigned int sig_flag;
 
 extern char **environ;
 
-int _strcmp(char *str1, char *str2);
 int verify_path(char **arguments);
 char *append_command(char *dir_path, char *command);
 int exec(char **arguments);
 int fill_args(char *entry, char **arguments);
-void new_cd(vars_t *vars);
 int print_not_found(char **arguments, int counter);
 char *_getenv(char *global_var);
 int _printp(const char *prompt, unsigned int size);
@@ -178,7 +176,5 @@ int exist(char *pathname);
 void free_grid(char **grid, int heigth);
 void last_free(char *entry);
 int verify_blt(char **arguments, int exit_stat);
-char *add_value(char *key, char *value);
-char **find_key(char **env, char *key);
 
 #endif
