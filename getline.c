@@ -1,8 +1,5 @@
 #include "main.h"
 
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-
 /**
  * _realloc - Reallocates a memory block using malloc and free.
  * @ptr: A pointer to the memory previously allocated.

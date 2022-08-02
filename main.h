@@ -69,6 +69,7 @@ typedef struct builtins
 } builtins_t;
 
 /******Some String operations and manipulation******/
+char *_strcpy(char *dest, const char *src);
 char *_strdup(char *strtodup);
 int _strcmpr(char *strcmp1, char *strcmp2);
 char *_strcat(char *strc1, char *strc2);
@@ -90,7 +91,7 @@ void new_cd(vars_t *vars);
 /** functions related to tokenizer **/
 char **tokenizer(char *buffer, char *delimiter);
 unsigned int check_if_match(char c, const char *str);
-char **_realloc(char **ptr, size_t *size);
+char **_reallocate(char **ptr, size_t *size);
 char *new_strtok(char *str, const char *delim);
 
 /** second tokenizer**/
@@ -176,5 +177,8 @@ int exist(char *pathname);
 void free_grid(char **grid, int heigth);
 void last_free(char *entry);
 int verify_blt(char **arguments, int exit_stat);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 #endif
