@@ -77,6 +77,7 @@ ssize_t _puts(char *str);
 int _strlen(char *str);
 void print_str(char *str, int new_line);
 int _write_char(char c);
+void print_env(void;
 int print_number(int n);
 
 /*** BUILTINGS PROTOTYPES ****/
