@@ -112,7 +112,8 @@ else if (buff && _strncmp(buff, "\n"))
 if (aray[0] != NULL)
 x(av, environ, aray, buff, pt, status);
 }
-} else
+}
+else
 {
 isatty(STDIN_FILENO) ? write(STDOUT_FILENO, "\n", 1) : status;
 free(buff), exit(exvalue);

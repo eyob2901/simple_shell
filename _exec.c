@@ -30,7 +30,8 @@ while (errors[i])
 errors[i++] = 0;
 exit(127);
 }
-} else
+}
+else
 wait(&status), doublefree(aray);
 if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
 *pt = WEXITSTATUS(status);
