@@ -13,173 +13,49 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <time.h>
+#include <math.h>
 
 /**
- * struct history - An structure for each command readed
- * @str: string
- * @counter: number of imputs
- * @next: Next element
- */
+ * struct Pf_func - format
+ * _printf- print function
+ * @op: pointer
+ * @f: function pointer
+*/
+typedef struct Pf_func
+{
+	char *op;
+	int (*f)(va_list);
+} print_fun;
 
-typedef struct history
+/**
+ * struct list_s - singly linked list
+ * @str: string - (malloc'ed string)
+ * @len: length of the string
+ * @next: points to the next node
+ *
+ * Description: singly linked list node structure
+ * for Holberton project
+ */
+typedef struct list_s
 {
 	char *str;
-	int counter;
-	struct history *next;
+	unsigned int len;
+	struct list_s *next;
+} list_t;
 
-} history_t;
-
-/**fixing**/
-/**** Estructura con las posibles variables que vamos a usar ****/
-/**
- * struct variables - variables
- * @array_tokens: array of tokens(arguments)
-  * @buffer: buffer of command
-  * @status: to handle exit status
-  * @argv: gets arguments at opening of shell
-  * @counter: counts commands entered
-  * @env: has enviroment
-  * @commands: have commands.
-  * @history: structure
-  * @invert: structure
- */
-typedef struct variables
-{
-	char **array_tokens;
-	char *buffer;
-	int status;
-	char **argv;
-	int counter;
-	char **env;
-	char **commands;
-	history_t *history;
-	history_t *invert;
-
-} vars_t;
-
-/**
- * struct builtins - struct for the builtin functions
- * @name: name of builtin command
- * @f: function for corresponding builtin
- */
-typedef struct builtins
-{
-	char *name;
-	void (*f)(vars_t *);
-} builtins_t;
-
-/******Some String operations and manipulation******/
-char *_strcpy(char *dest, const char *src);
-char *_strdup(char *strtodup);
-int _strcmpr(char *strcmp1, char *strcmp2);
-char *_strcat(char *strc1, char *strc2);
-ssize_t _puts(char *str);
-int _strlen(char *str);
-void print_str(char *str, int new_line);
-int _write_char(char c);
-void print_env(void;
-int print_number(int n);
-
-/*** BUILTINGS PROTOTYPES ****/
-void (*check_for_builtins(vars_t *vars))(vars_t *vars);
-void new_exit(vars_t *vars);
-void _env(vars_t *vars);
-void new_setenv(vars_t *vars);
-void new_unsetenv(vars_t *vars);
-void new_help(vars_t *vars);
-void new_cd(vars_t *vars);
-
-/** functions related to tokenizer **/
-char **tokenizer(char *buffer, char *delimiter);
-unsigned int check_if_match(char c, const char *str);
-char **_reallocate(char **ptr, size_t *size);
-char *new_strtok(char *str, const char *delim);
-
-/** second tokenizer**/
-char **tokenize(int token_count, char *line, const char *delimiter);
-char **token_interface(char *line, const char *delimiter, int token_count);
-int count_token(char *line, const char *delimiter);
-
-/** functions related ask external shell, ask the path**/
-void check_for_path(vars_t *vars);
-
-/** function to handle error messages, used to help exit function*/
-void _puts_error(char *str);
-void prints_error_msg(vars_t *vars, char *msg);
-char *integer_converter(unsigned int count);
-
-/** function to help exit builting*/
-int _atoi(char *str);
-
-/** functions de help env builting*/
-/*this to get enviroment*/
-char **make_enviroment(char **env);
-void free_env(char **env);
-
-/**New_help functions**/
-void new_help_exit(vars_t *vars);
-void new_help_help(vars_t *vars);
-void new_help_cd(vars_t *vars);
-void new_help_env(vars_t *vars);
-void new_help_history(vars_t *vars);
-void new_help_unalias(vars_t *vars);
-void new_help_unset(vars_t *vars);
-void new_help_unsetenv(vars_t *vars);
-void new_help_setenv(vars_t *vars);
-void new_help_alias(vars_t *vars);
-void new_help_else(vars_t *vars);
-
-/** FUNCTIONS FOR SETENV AND UNSETENV**/
-void new_setenv(vars_t *vars);
-void add_key(vars_t *vars);
-char *add_value(char *key, char *value);
-char **find_key(char **env, char *key);
-void setenv_cd(char **args, vars_t *vars);
-void chdir_to_env(vars_t *vars, char *str);
-
-/** ask the path **/
-void fork_child(vars_t vars);
-char *path_finder(vars_t vars, char *command);
-int find_env_index(vars_t vars, char *str);
-char **tokenize_path(vars_t vars, int index, char *str);
-char *search_directories(char **path_tokens, char *command);
-char *build_path(char *directory, char *command);
-
-/** More handle error messages**/
-void error_printing(char *av, int count, char *command);
-void exec_error(char *av, int count, char *tmp_command);
-void simple_error(void);
-void print_cd_1(vars_t *vars);
-void print_cd_2(vars_t *vars);
-
-/**history build function**/
-void new_history(vars_t *vars);
-void *add_nodeint(history_t **head, char *str);
-void free_listint(history_t *head);
-ssize_t _puts3(char *str);
-void print_message(char *str);
-/** handles signals**/
-
-void end_of_file(char *buffer);
-unsigned int sig_flag;
-
-
-extern char **environ;
-
-int verify_path(char **arguments);
-char *append_command(char *dir_path, char *command);
-int exec(char **arguments);
-int fill_args(char *entry, char **arguments);
-int print_not_found(char **arguments, int counter);
-char *_getenv(char *global_var);
-int _printp(const char *prompt, unsigned int size);
 int _putchar(char c);
-int exist(char *pathname);
-void free_grid(char **grid, int heigth);
-void last_free(char *entry);
-int verify_blt(char **arguments, int exit_stat);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
-
+char **_split(char *av);
+int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+int _strncmp(char *s1, char *s2);
+char *_strcat(char *dest, char *src);
+void *_calloc(unsigned int nmemb, unsigned int size);
+int (*get_op_func(const char *s, int pos))(va_list);
+char *list_path(char array[], char *environ[]);
+char *_strdup(char *str);
+char *_getenv(const char *name);
+int _environ(char *environ[]);
+void control(int signal);
+int x(char **av, char **environ, char **aray, char *buff, int *pt, int status);
+void doublefree(char **array);
 #endif
