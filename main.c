@@ -1,44 +1,73 @@
 #include "main.h"
 
 /**
-* main - prints "$ ", wait for the user to enter a command, execute it
-* Return: 0 on success. -1 otherwise
-*/
-int main(void)
+ * free_data - Frees data structure
+ *
+ * @datash: data structure
+ * Return: no return
+ */
+void free_data(data_shell *datash)
 {
-int err;
+	unsigned int i;
 
-while (1)
-{
-char *line = NULL, **words = NULL;
+	for (i = 0; datash->_environ[i]; i++)
+	{
+		free(datash->_environ[i]);
+	}
 
-_puts("($) ");
-rline(&line);
-
-words = split(line);
-
-if (words == NULL || line == NULL)
-{
-free(line);
-free(words);
-continue;
+	free(datash->_environ);
+	free(datash->pid);
 }
 
-if (checkbuilt(words) == 0)
+/**
+ * set_data - Initialize data structure
+ *
+ * @datash: data structure
+ * @av: argument vector
+ * Return: no return
+ */
+void set_data(data_shell *datash, char **av)
 {
-free(words);
-free(line);
-continue;
+	unsigned int i;
+
+	datash->av = av;
+	datash->input = NULL;
+	datash->args = NULL;
+	datash->status = 0;
+	datash->counter = 1;
+
+	for (i = 0; environ[i]; i++)
+		;
+
+	datash->_environ = malloc(sizeof(char *) * (i + 1));
+
+	for (i = 0; environ[i]; i++)
+	{
+		datash->_environ[i] = _strdup(environ[i]);
+	}
+
+	datash->_environ[i] = NULL;
+	datash->pid = aux_itoa(getpid());
 }
 
-err = exec(words);
-if (err == -1)
+/**
+ * main - Entry point
+ *
+ * @ac: argument count
+ * @av: argument vector
+ *
+ * Return: 0 on success.
+ */
+int main(int ac, char **av)
 {
-puts("error in execution\n");
-}
-free(line);
-free(words);
-words = NULL;
-line = NULL;
-}
+	data_shell datash;
+	(void) ac;
+
+	signal(SIGINT, get_sigint);
+	set_data(&datash, av);
+	shell_loop(&datash);
+	free_data(&datash);
+	if (datash.status < 0)
+		return (255);
+	return (datash.status);
 }
